@@ -32,7 +32,17 @@ let getMovieData = (URL) => {
 };
 
 let showMovie = (moviesData) => {
-  document.getElementById("result-grid").innerHTML = `
+  if (moviesData.Error === "Movie not found!") {
+    document.getElementById("result-grid").innerHTML = "";
+    document.getElementById("not-found").innerHTML = ` 
+    <div class="movie-info movie-notfound">
+        <h3 class="">Opps! Movie not found!</h3>
+        <span>The Movie you were looking for doesn't exist.</span>
+      </div>
+    `;
+  } else {
+    document.getElementById("not-found").innerHTML = "";
+    document.getElementById("result-grid").innerHTML = `
     <!-- movie information here -->
             <div class="movie-poster">
               <img src="${moviesData["Poster"]}" alt="movie poster" />
@@ -70,4 +80,5 @@ let showMovie = (moviesData) => {
             </div>
     
     `;
+  }
 };

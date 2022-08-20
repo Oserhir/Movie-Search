@@ -294,3 +294,21 @@ img {
     margin-left: 0;
   }
 }
+
+.movie-notfound {
+  border: 2px solid #000000;
+  height: 30vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  color: var(--yellow-color);
+}
+
+.movie-notfound span {
+  color: white;
+  font-size: 30px;
+  margin-top: 10px;
+  font-weight: 100;
+}
