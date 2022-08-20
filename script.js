@@ -4,25 +4,8 @@ const API_KEY = "fc1fef96";
 let movieSearch = document.getElementById("form");
 let movieSearchBox = document.getElementById("movie-search-box");
 
-movieSearch.addEventListener("keyup", () => {
-  getMoviebyName(movieSearchBox.value);
-});
-
-let getMoviebyName = (Title) => {
-  const FULL_URL = `${URL}?s=${Title}&apikey=${API_KEY}`;
-  const MoviePr = fetch(FULL_URL);
-  return MoviePr.then((res) => {
-    res.json().then((res) => {
-      if (res.Response === "False") return;
-      return res.Search;
-    });
-  }).catch((err) => {
-    console.log(err);
-  });
-};
-
 window.onload = () => {
-  //  movieSearchBox.value = "";
+  movieSearchBox.value = "";
 };
 
 movieSearch.addEventListener("submit", (e) => {
@@ -58,7 +41,12 @@ let showMovie = (moviesData) => {
               <h3 class="movie-title">${moviesData["Title"]}</h3>
               <ul class="movie-misc-info">
                 <li class="year">Year: ${moviesData["Year"]} </li>
-                <li class="rated">Ratings: ${moviesData["Rated"]} </li>
+                 ${
+                   moviesData["Rated"] == "Not Rated" ||
+                   moviesData["Rated"] == "N/A"
+                     ? ""
+                     : `<li class="rated">Ratings: ${moviesData["Rated"]} </li>`
+                 } 
                 <li class="released">Released: ${moviesData["Released"]} </li>
               </ul>
               <p class="genre"><b>Genre:</b> ${moviesData["Genre"]}</p>
@@ -71,9 +59,13 @@ let showMovie = (moviesData) => {
               <p class="plot">
                 <b>Plot:</b>  ${moviesData["Plot"]}
               </p>
-              <p class="language"><b>Language:</b> ${moviesData["Language"]} </p>
+              <p class="language"><b>Language:</b> ${
+                moviesData["Language"]
+              } </p>
               <p class="awards">
-                <b><i class="fas fa-award"></i></b>  ${moviesData["Awards"]}
+                <b><i class="fas fa-award"></i></b>  ${
+                  moviesData["Awards"] === "N/A" ? "" : moviesData["Awards"]
+                }
               </p>
             </div>
     
