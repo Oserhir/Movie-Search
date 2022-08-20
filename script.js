@@ -4,6 +4,23 @@ const API_KEY = "fc1fef96";
 let movieSearch = document.getElementById("form");
 let movieSearchBox = document.getElementById("movie-search-box");
 
+movieSearch.addEventListener("keyup", () => {
+  getMoviebyName(movieSearchBox.value);
+});
+
+let getMoviebyName = (Title) => {
+  const FULL_URL = `${URL}?s=${Title}&apikey=${API_KEY}`;
+  const MoviePr = fetch(FULL_URL);
+  return MoviePr.then((res) => {
+    res.json().then((res) => {
+      if (res.Response === "False") return;
+      return res.Search;
+    });
+  }).catch((err) => {
+    console.log(err);
+  });
+};
+
 window.onload = () => {
   //  movieSearchBox.value = "";
 };
@@ -32,11 +49,10 @@ let getMovieData = (URL) => {
 };
 
 let showMovie = (moviesData) => {
- 
   document.getElementById("result-grid").innerHTML = `
     <!-- movie information here -->
             <div class="movie-poster">
-              <img src="${ moviesData["Poster"] }" alt="movie poster" />
+              <img src="${moviesData["Poster"]}" alt="movie poster" />
             </div>
             <div class="movie-info">
               <h3 class="movie-title">${moviesData["Title"]}</h3>
