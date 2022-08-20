@@ -5,7 +5,7 @@ let movieSearch = document.getElementById("form");
 let movieSearchBox = document.getElementById("movie-search-box");
 
 window.onload = () => {
-  movieSearchBox.value = "";
+  //  movieSearchBox.value = "";
 };
 
 movieSearch.addEventListener("submit", (e) => {
@@ -14,7 +14,7 @@ movieSearch.addEventListener("submit", (e) => {
   const FULL_URL = `${URL}?t=${Title}&apikey=${API_KEY}`;
 
   getMovieData(FULL_URL).then((res) => {
-    showMovie(res.Search[0]);
+    showMovie(res);
   });
 });
 
@@ -25,8 +25,6 @@ let getMovieData = (URL) => {
       if (res.ok) {
         return res.json();
       }
-
-      // return res.json();
     })
     .catch((err) => {
       console.log(err);
@@ -34,34 +32,32 @@ let getMovieData = (URL) => {
 };
 
 let showMovie = (moviesData) => {
+ 
   document.getElementById("result-grid").innerHTML = `
     <!-- movie information here -->
             <div class="movie-poster">
-              <img src="" alt="movie poster" />
+              <img src="${ moviesData["Poster"] }" alt="movie poster" />
             </div>
             <div class="movie-info">
               <h3 class="movie-title">${moviesData["Title"]}</h3>
               <ul class="movie-misc-info">
                 <li class="year">Year: ${moviesData["Year"]} </li>
-                <li class="rated">Ratings: ${moviesData["Title"]} </li>
-                <li class="released">Released: ${moviesData["Title"]} </li>
+                <li class="rated">Ratings: ${moviesData["Rated"]} </li>
+                <li class="released">Released: ${moviesData["Released"]} </li>
               </ul>
-              <p class="genre"><b>Genre:</b> ${moviesData["Title"]}</p>
+              <p class="genre"><b>Genre:</b> ${moviesData["Genre"]}</p>
               <p class="writer">
-                <b>Writer:</b> James Gunn, Don Abnett, Andy Lanning
+                <b>Writer:</b> ${moviesData["Writer"]}
               </p>
               <p class="actors">
-                <b>Actors: </b>Chris Pratt, Zoe Saldana, Dave Bautista
+                <b>Actors: </b> ${moviesData["Actors"]}
               </p>
               <p class="plot">
-                <b>Plot:</b> The Guardians struggle to keep together as a team
-                while dealing with their personal family issues, notably
-                Star-Lord's ecounter with his father the ambitious celestial
-                being Ego.
+                <b>Plot:</b>  ${moviesData["Plot"]}
               </p>
-              <p class="language"><b>Language:</b> English</p>
+              <p class="language"><b>Language:</b> ${moviesData["Language"]} </p>
               <p class="awards">
-                <b><i class="fas fa-award"></i></b> Nominated for 1 Oscar
+                <b><i class="fas fa-award"></i></b>  ${moviesData["Awards"]}
               </p>
             </div>
     
