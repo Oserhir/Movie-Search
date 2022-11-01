@@ -1,5 +1,7 @@
 # Movie-Search
 
+A web app created using JavaScript that allows a user to search for movies and find movies with certain filters such as genre, popularity, and year.
+
 Live URL :- https://oserhir.github.io/Movie-Search/
 
 <br>
